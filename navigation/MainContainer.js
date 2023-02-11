@@ -1,67 +1,66 @@
-import * as React from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
-
+import * as React from "react";
+import { View, Text, SafeAreaView } from "react-native";
 
 // Import the Screens
 
- import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Entypo';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons from "react-native-vector-icons/Entypo";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // Import the Screens here
-import HomeScreen from './screens/HomeScreen';
-import SearchScreen from './screens/SearchScreen';
-import NavigatorScreen from './screens/NavigatorScreen';
+import HomeScreen from "./screens/HomeScreen";
+import SearchScreen from "./screens/SearchScreen";
+import NavigatorScreen from "./screens/NavigatorScreen";
+import ResultScreen from "./screens/ResultScreen";
 
 // Create the Screens
 
-const homeName = 'Home';
-const searchName = 'Search';
-const navigatorName = 'Navigator';
+const homeName = "Home";
+const searchName = "Search";
+const navigatorName = "Navigator";
 
 const Tab = createBottomTabNavigator();
-const Stack= createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
 function MainContainer() {
-    return (
-     <NavigationContainer>
-           <Tab.Navigator 
-           screenOptions={({route}) => ({
-            tabBarShowLabel: false,
-            headerShown : false,
-            tabBarActiveTintColor: 'orange',
-            tabBarStyle: {
-                backgroundColor: '#1757AE',
-                padding: 2
-            },
-            tabBarIcon: ({
-                focused,
-                color,
-                size
-            }) => {
-                let iconName;
-                let rn = route.name;
+  return (
+    <NavigationContainer>
+      {/* Make the Snack for Navigation */}
 
-                if(rn === homeName){
-                    iconName = focused ? 'home' : 'home';
-                } else if (rn == searchName){
-                    iconName = focused ? 'magnifying-glass' : 'magnifying-glass'
-                } else if(rn == navigatorName) {
-                    iconName = focused ? 'reply' : 'reply'
-                } return <Ionicons name={iconName} size={size} color={color}/>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarHideOnKeyboard: true,
+          tabBarShowLabel: false,
+          headerShown: false,
+          tabBarInactiveTintColor: "white",
+          tabBarActiveTintColor: "orange",
+          tabBarStyle: {
+            backgroundColor: "#1757AE",
+            padding: 2,
+          },
 
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            let rn = route.name;
+
+            if (rn === homeName) {
+              iconName = focused ? "home" : "home";
+            } else if (rn == searchName) {
+              iconName = focused ? "magnifying-glass" : "magnifying-glass";
+            } else if (rn == navigatorName) {
+              iconName = focused ? "reply" : "reply";
             }
-           })}>
-
-            <Tab.Screen  name='Home' component={HomeScreen}/>
-            <Tab.Screen name='Search' component={SearchScreen}/>
-            <Tab.Screen name='Navigator' component={NavigatorScreen}/>
-
-        </Tab.Navigator>
-     </NavigationContainer>
-    );
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+      >
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="Navigator" component={NavigatorScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
 }
 
 export default MainContainer;
